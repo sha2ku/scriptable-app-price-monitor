@@ -67,7 +67,12 @@ function createWidget(app_infos) {
 
   //打折排到最前
   app_infos.sort((a, b) => {
-    return b.is_sale === a.is_sale ? 0 : b.is_sale ? 1 : -1;
+    if (a.is_sale === b.is_sale) {
+      // 当 is_sale 相同时，按 content 字典序排序
+      return a.content.localeCompare(b.content);
+    }
+    // is_sale 为 true 的排在前面
+    return b.is_sale - a.is_sale;
   });
 
   for (var i = 0; i < app_infos.length; i++) {
@@ -82,7 +87,7 @@ function createWidget(app_infos) {
 function addTextToListWidget(app_info, listWidget) {
   let text = app_info.content;
   const stack = listWidget.addStack();
-  stack.setPadding(3, 15, 3, 15);
+  stack.setPadding(2, 15, 2, 15);
   let item = stack.addText(text);
   if (app_info.is_sale) {
     // item.textColor = Color.green();
