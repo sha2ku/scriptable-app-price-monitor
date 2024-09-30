@@ -1,6 +1,6 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-color: deep-blue; icon-glyph: tag;
+// icon-color: deep-green; icon-glyph: tag;
 /*
  * Author: evilbutcher 修改自t.me/QuanXApp群友分享
  * Github: https://github.com/evilbutcher
@@ -60,7 +60,7 @@ bgColor.locations = [0.0, 1.0];
 
 function createWidget(app_infos) {
   const w = new ListWidget();
-  w.backgroundGradient = bgColor;
+  // w.backgroundGradient = bgColor;
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
