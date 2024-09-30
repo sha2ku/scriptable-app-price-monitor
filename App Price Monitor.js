@@ -1,6 +1,6 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-color: deep-blue; icon-glyph: mobile-alt;
+// icon-color: deep-blue; icon-glyph: tag;
 /*
  * Author: evilbutcher 修改自t.me/QuanXApp群友分享
  * Github: https://github.com/evilbutcher
@@ -14,9 +14,15 @@ var app_monitor = {
   1563121109: {
     p: "$4.99",
   },
+  1635315427: {
+    p: "¥25.00",
+  },
 };
 
-let apps = ["1563121109|us"]; //app跟踪id
+let apps = [
+  "1563121109|us", //破碎的像素地牢
+  "1635315427", //暖雪
+]; //app跟踪id
 let reg = "cn"; //默认区域：美国us 中国cn 香港hk
 let notifys = [];
 try {
@@ -39,7 +45,7 @@ const isDark = Device.isUsingDarkAppearance();
 const bgColor = new LinearGradient();
 bgColor.colors = isDark
   ? [new Color("#151515"), new Color("#1c1c1e")]
-  : [new Color("#ffffff"), new Color("#fbc2eb")];
+  : [new Color("#E0E0E0"), new Color("#ffffff")];
 bgColor.locations = [0.0, 1.0];
 
 !(async () => {

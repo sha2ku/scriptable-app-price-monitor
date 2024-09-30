@@ -1,6 +1,6 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-glyph: braille; icon-color: deep-gray;
+// icon-color: deep-gray; icon-glyph: code-branch;
 /**
  * @version 1.4.0
  * @author Honye
