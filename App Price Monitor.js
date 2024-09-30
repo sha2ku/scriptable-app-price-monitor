@@ -45,7 +45,7 @@ const isDark = Device.isUsingDarkAppearance();
 const bgColor = new LinearGradient();
 bgColor.colors = isDark
   ? [new Color("#151515"), new Color("#1c1c1e")]
-  : [new Color("#E0E0E0"), new Color("#ffffff")];
+  : [new Color("#ffffff"), new Color("#f0f0f0")];
 bgColor.locations = [0.0, 1.0];
 
 !(async () => {
