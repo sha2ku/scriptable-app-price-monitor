@@ -15,7 +15,7 @@ var app_monitor = {
     p: "$4.99",
   },
   1635315427: {
-    p: "¥25.00",
+    p: "¥25.001",
   },
 };
 
@@ -61,6 +61,11 @@ function createWidget(app_infos) {
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
+
+  //打折排到最前
+  app_infos.sort((a, b) => {
+    return b.is_sale === a.is_sale ? 0 : b.is_sale ? 1 : -1;
+  });
 
   for (var i = 0; i < app_infos.length; i++) {
     addTextToListWidget(app_infos[i], w);
