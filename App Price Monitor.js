@@ -24,18 +24,15 @@ let apps = [
   "1635315427", //暖雪
 ]; //app跟踪id
 let reg = "cn"; //默认区域：美国us 中国cn 香港hk
-let notifys = [];
+let app_infos = [];
 try {
   const con = importModule("Config");
   apps = con.apps();
   reg = con.reg();
   if (apps == [] || reg == "") {
-    log("配置文件内签到信息不完整");
     throw new Error(err);
   }
-  log("将使用配置文件内App监控信息");
 } catch (err) {
-  log("将使用脚本内App监控信息");
   if (apps == "" || reg == "") {
     $.msg("请检查脚本内填入的App监控信息是否完整");
   }
@@ -50,24 +47,23 @@ bgColor.locations = [0.0, 1.0];
 
 !(async () => {
   await format_apps(apps);
-  log(notifys);
-  let widget = createWidget(notifys);
+  log(app_infos);
+  let widget = createWidget(app_infos);
   Script.setWidget(widget);
   Script.complete();
 })().catch((err) => {
-  G.msg("App价格版本监控 运行出现错误❌\n" + err);
+  G.msg("运行出现错误\n" + err);
 });
 
-function createWidget(notifys) {
+function createWidget(app_infos) {
   const w = new ListWidget();
   w.backgroundGradient = bgColor;
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
 
-  for (var i = 0; i < notifys.length; i++) {
-    addTextToListWidget(notifys[i], w);
-    w.addSpacer(5);
+  for (var i = 0; i < app_infos.length; i++) {
+    addTextToListWidget(app_infos[i], w);
   }
 
   w.addSpacer();
@@ -75,11 +71,18 @@ function createWidget(notifys) {
   return w;
 }
 
-function addTextToListWidget(text, listWidget) {
-  let item = listWidget.addText("    " + text);
+function addTextToListWidget(app_info, listWidget) {
+  let text = app_info.content;
+  const stack = listWidget.addStack();
+  stack.setPadding(3, 15, 3, 15);
+  let item = stack.addText(text);
   item.textColor = isDark ? Color.white() : Color.black();
-//   item.font = new Font("SF Mono", 11);
-  item.font = Font.systemFont(11);
+  if (app_info.is_sale) {
+    item.textColor = Color.green();
+    item.font = Font.boldSystemFont(11);
+  } else {
+    item.font = Font.systemFont(11);
+  }
 }
 
 function addTitleTextToListWidget(text, listWidget) {
@@ -90,8 +93,7 @@ function addTitleTextToListWidget(text, listWidget) {
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
-//     item.font = new Font("SF Mono", 10);
-    item.font = Font.boldSystemFont(10)
+    item.font = Font.boldSystemFont(10);
   }
   item.textOpacity = 0.7;
 }
@@ -117,10 +119,10 @@ async function format_apps(x) {
           apps_f[n_n[1]].push(n_n[0]);
         }
       } else {
-        notifys.push(`ID格式错误:【${n}】`);
+        app_infos.push({ content: `ID格式错误:【${n}】` });
       }
     } else {
-      notifys.push(`ID格式错误:【${n}】`);
+      app_infos.push({ content: `ID格式错误:【${n}】` });
     }
   });
   if (Object.keys(apps_f).length > 0) {
@@ -146,23 +148,29 @@ async function post_data(d) {
                   n: x.trackName,
                   p: x.formattedPrice,
                 };
+
+                var is_sale = false;
                 if (app_monitor.hasOwnProperty(x.trackId)) {
                   if (
                     JSON.stringify(app_monitor[x.trackId]) !==
                     JSON.stringify(infos[x.trackId])
                   ) {
                     if (x.formattedPrice !== app_monitor[x.trackId].p) {
-                      notifys.push(
-                        `🈹${x.trackName} | ${x.formattedPrice}(${
+                      is_sale = true;
+                      app_infos.push({
+                        content: `${x.trackName} | ${x.formattedPrice}(${
                           app_monitor[x.trackId].p
-                        })`
-                      );
-                    } else {
-                      notifys.push(`${x.trackName} | ${x.formattedPrice}`);
+                        })`,
+                        is_sale: true,
+                      });
                     }
                   }
-                } else {
-                  notifys.push(`${x.trackName} | ${x.formattedPrice}`);
+                }
+                if (!is_sale) {
+                  app_infos.push({
+                    content: `${x.trackName} | ${x.formattedPrice}`,
+                    is_sale: false,
+                  });
                 }
               });
             }
@@ -173,7 +181,7 @@ async function post_data(d) {
           });
       })
     );
-    return notifys;
+    return app_infos;
   } catch (e) {
     console.log(e);
   }
