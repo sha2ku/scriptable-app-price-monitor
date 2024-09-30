@@ -84,11 +84,13 @@ function addTextToListWidget(app_info, listWidget) {
   const stack = listWidget.addStack();
   stack.setPadding(3, 15, 3, 15);
   let item = stack.addText(text);
-  item.textColor = isDark ? Color.white() : Color.black();
   if (app_info.is_sale) {
-    item.textColor = Color.green();
+    // item.textColor = Color.green();
+    item.textColor = new Color("006400");
     item.font = Font.boldSystemFont(11);
   } else {
+    // item.textColor = isDark ? Color.white() : Color.black();
+    item.textColor = new Color("808080");
     item.font = Font.systemFont(11);
   }
 }
@@ -97,7 +99,8 @@ function addTitleTextToListWidget(text, listWidget) {
   const titleStack = listWidget.addStack();
   titleStack.size = new Size(330, 15);
   let item = titleStack.addText(text);
-  item.textColor = isDark ? Color.white() : Color.black();
+  // item.textColor = isDark ? Color.white() : Color.black();
+  item.textColor = new Color("808080");
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
