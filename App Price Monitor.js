@@ -8,7 +8,6 @@
  * 感谢@MuTu88帮忙测试！
  */
 const $http = HTTP();
-const G = importModule("Env");
 
 var app_monitor = {
   1563121109: {
@@ -44,7 +43,7 @@ bgColor.colors = isDark
   ? [new Color("#151515"), new Color("#1c1c1e")]
   : [new Color("#ffffff"), new Color("#f0f0f0")];
 
-// bgColor.colors = isDark ? [new Color("#000000")] : [new Color("#ffffff")];
+bgColor.colors = isDark ? [new Color("#000000")] : [new Color("#ffffff")];
 
 bgColor.locations = [0.0, 1.0];
 
@@ -55,12 +54,12 @@ bgColor.locations = [0.0, 1.0];
   Script.setWidget(widget);
   Script.complete();
 })().catch((err) => {
-  G.msg("运行出现错误\n" + err);
+  $.msg("运行出现错误\n" + err);
 });
 
 function createWidget(app_infos) {
   const w = new ListWidget();
-  // w.backgroundGradient = bgColor;
+  w.backgroundGradient = bgColor;
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
@@ -92,12 +91,13 @@ function addTextToListWidget(app_info, listWidget) {
   if (app_info.is_sale) {
     // item.textColor = Color.green();
     item.textColor = new Color("006400");
-    item.font = Font.boldSystemFont(11);
+    item.font = Font.boldSystemFont(12);
   } else {
     item.textColor = isDark ? Color.white() : Color.black();
     // item.textColor = new Color("808080");
-    item.font = Font.systemFont(11);
+    item.font = Font.systemFont(12);
   }
+  item.textOpacity = 1;
 }
 
 function addTitleTextToListWidget(text, listWidget) {
@@ -109,9 +109,9 @@ function addTitleTextToListWidget(text, listWidget) {
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
-    item.font = Font.boldSystemFont(10);
+    item.font = Font.boldSystemFont(11);
   }
-  item.textOpacity = 0.7;
+  item.textOpacity = 0.8;
 }
 
 async function format_apps(x) {

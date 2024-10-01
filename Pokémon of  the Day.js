@@ -1,6 +1,6 @@
 // Variables used by Scriptable.
 // These must be at the very top of the file. Do not edit.
-// icon-color: null; icon-glyph: null;
+// icon-color: null; icon-glyph: paw;
 // This script was downloaded using ScriptDude.
 // Do not remove these lines, if you want to benefit from automatic updates.
 // source: https://raw.githubusercontent.com/dominik-lueke/PokemonOfTheDay/main/PokemonOfTheDay.js; docs: https://github.com/dominik-lueke/PokemonOfTheDay/blob/main/README.md; hash: -489020052;
