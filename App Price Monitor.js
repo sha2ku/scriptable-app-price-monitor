@@ -59,7 +59,7 @@ bgColor.locations = [0.0, 1.0];
 
 function createWidget(app_infos) {
   const w = new ListWidget();
-  w.backgroundGradient = bgColor;
+//   w.backgroundGradient = bgColor;
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
@@ -87,6 +87,7 @@ function addTextToListWidget(app_info, listWidget) {
   let text = app_info.content;
   const stack = listWidget.addStack();
   stack.setPadding(2, 15, 2, 15);
+  
   let item = stack.addText(text);
   if (app_info.is_sale) {
     // item.textColor = Color.green();
