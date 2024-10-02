@@ -39,7 +39,7 @@ try {
   }
 } catch (err) {
   if (apps == "" || reg == "") {
-    $.msg("请检查脚本内填入的App监控信息是否完整");
+    log("请检查脚本内填入的App监控信息是否完整");
   }
 }
 
@@ -60,7 +60,7 @@ bgColor.locations = [0.0, 1.0];
   Script.setWidget(widget);
   Script.complete();
 })().catch((err) => {
-  $.msg("运行出现错误\n" + err);
+  log("运行出现错误\n" + err);
 });
 
 function createWidget(app_infos) {
@@ -104,7 +104,7 @@ function addTextToListWidget(app_info, listWidget) {
     // item.textColor = new Color("808080");
     item.font = Font.systemFont(12);
   }
-  item.textOpacity = 1;
+  // item.textOpacity = 1;
 }
 
 function addTitleTextToListWidget(text, listWidget) {
