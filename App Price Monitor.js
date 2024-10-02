@@ -12,15 +12,21 @@ const $http = HTTP();
 var app_monitor = {
   1563121109: {
     p: "$4.99",
+    n: "破碎的像素地牢",
   },
   1635315427: {
     p: "¥25.00",
+  },
+  6502453075: {
+    p: "$9.99",
+    n: "小丑牌",
   },
 };
 
 let apps = [
   "1563121109|us", //破碎的像素地牢
   "1635315427", //暖雪
+  "6502453075|us", //小丑牌
 ]; //app跟踪id
 let reg = "cn"; //默认区域：美国us 中国cn 香港hk
 let app_infos = [];
@@ -59,7 +65,7 @@ bgColor.locations = [0.0, 1.0];
 
 function createWidget(app_infos) {
   const w = new ListWidget();
-//   w.backgroundGradient = bgColor;
+  w.backgroundGradient = bgColor;
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
@@ -87,7 +93,7 @@ function addTextToListWidget(app_info, listWidget) {
   let text = app_info.content;
   const stack = listWidget.addStack();
   stack.setPadding(2, 15, 2, 15);
-  
+
   let item = stack.addText(text);
   if (app_info.is_sale) {
     // item.textColor = Color.green();
@@ -112,7 +118,7 @@ function addTitleTextToListWidget(text, listWidget) {
   } catch (e) {
     item.font = Font.boldSystemFont(11);
   }
-  item.textOpacity = 0.8;
+  item.textOpacity = 0.7;
 }
 
 async function format_apps(x) {
@@ -161,21 +167,26 @@ async function post_data(d) {
             let results = JSON.parse(response.body).results;
             if (Array.isArray(results) && results.length > 0) {
               results.forEach((x) => {
-                infos[x.trackId] = {
-                  n: x.trackName,
-                  p: x.formattedPrice,
-                };
-
                 var is_sale = false;
+                var app_name = app_monitor[x.trackId].n;
+                if (!app_name) {
+                  app_name = x.trackName;
+                }
+                let app_price = x.formattedPrice;
+
+                infos[x.trackId] = {
+                  n: app_name,
+                  p: app_price,
+                };
                 if (app_monitor.hasOwnProperty(x.trackId)) {
                   if (
                     JSON.stringify(app_monitor[x.trackId]) !==
                     JSON.stringify(infos[x.trackId])
                   ) {
-                    if (x.formattedPrice !== app_monitor[x.trackId].p) {
+                    if (app_price !== app_monitor[x.trackId].p) {
                       is_sale = true;
                       app_infos.push({
-                        content: `${x.trackName} | ${x.formattedPrice}(${
+                        content: `${app_name} | ${app_price}(${
                           app_monitor[x.trackId].p
                         })`,
                         is_sale: true,
@@ -185,7 +196,7 @@ async function post_data(d) {
                 }
                 if (!is_sale) {
                   app_infos.push({
-                    content: `${x.trackName} | ${x.formattedPrice}`,
+                    content: `${app_name} | ${app_price}`,
                     is_sale: false,
                   });
                 }
