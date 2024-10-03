@@ -11,7 +11,9 @@ const $http = HTTP();
 
 var app_monitor = {
   1563121109: {
+    //监控价格，当真实价格与该价格不相等时进行折扣展示
     p: "$4.99",
+    //别名展示
     n: "破碎的像素地牢",
   },
   1635315427: {
@@ -79,7 +81,7 @@ function createWidget(app_infos) {
     // is_sale 为 true 的排在前面
     return b.is_sale - a.is_sale;
   });
-
+  
   for (var i = 0; i < app_infos.length; i++) {
     addTextToListWidget(app_infos[i], w);
   }
@@ -93,6 +95,7 @@ function addTextToListWidget(app_info, listWidget) {
   let text = app_info.content;
   const stack = listWidget.addStack();
   stack.setPadding(2, 15, 2, 15);
+
 
   let item = stack.addText(text);
   if (app_info.is_sale) {
