@@ -67,7 +67,7 @@ bgColor.locations = [0.0, 1.0];
 
 function createWidget(app_infos) {
   const w = new ListWidget();
-  w.backgroundGradient = bgColor;
+//   w.backgroundGradient = bgColor;
 
   addTitleTextToListWidget("App Price Monitor", w);
   w.addSpacer(5);
@@ -96,26 +96,19 @@ function addTextToListWidget(app_info, listWidget) {
   const stack = listWidget.addStack();
   stack.setPadding(2, 15, 2, 15);
 
-
   let item = stack.addText(text);
   if (app_info.is_sale) {
-    // item.textColor = Color.green();
     item.textColor = new Color("006400");
     item.font = Font.boldSystemFont(12);
   } else {
-    item.textColor = isDark ? Color.white() : Color.black();
-    // item.textColor = new Color("808080");
     item.font = Font.systemFont(12);
   }
-  // item.textOpacity = 1;
 }
 
 function addTitleTextToListWidget(text, listWidget) {
   const titleStack = listWidget.addStack();
   titleStack.size = new Size(330, 15);
   let item = titleStack.addText(text);
-  item.textColor = isDark ? Color.white() : Color.black();
-  // item.textColor = new Color("808080");
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
