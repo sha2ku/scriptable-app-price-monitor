@@ -23,12 +23,21 @@ var app_monitor = {
     p: "$9.99",
     n: "小丑牌",
   },
+  1032708262: {
+    p: "$2.99",
+    n: "坠落深井",
+  },
+  6482989598: {
+    p: "¥30.00",
+  },
 };
 
 let apps = [
   "1563121109|us", //破碎的像素地牢
   "1635315427", //暖雪
   "6502453075|us", //小丑牌
+  "1032708262|us", //坠落深井
+  "6482989598", //侠客风云传前传
 ]; //app跟踪id
 let reg = "cn"; //默认区域：美国us 中国cn 香港hk
 let app_infos = [];
@@ -98,21 +107,27 @@ function addTextToListWidget(app_info, listWidget) {
 
   let item = stack.addText(text);
   if (app_info.is_sale) {
+    // item.textColor = Color.green();
     item.textColor = new Color("006400");
     item.font = Font.boldSystemFont(12);
   } else {
+//     item.textColor = isDark ? Color.white() : Color.black();
+    // item.textColor = new Color("808080");
     item.font = Font.systemFont(12);
   }
+  // item.textOpacity = 1;
 }
 
 function addTitleTextToListWidget(text, listWidget) {
   const titleStack = listWidget.addStack();
   titleStack.size = new Size(330, 15);
   let item = titleStack.addText(text);
+//   item.textColor = isDark ? Color.white() : Color.black();
+  // item.textColor = new Color("808080");
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
-    item.font = Font.boldSystemFont(11);
+    item.font = Font.boldSystemFont(10);
   }
   item.textOpacity = 0.7;
 }
