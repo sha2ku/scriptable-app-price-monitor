@@ -76,9 +76,12 @@ bgColor.locations = [0.0, 1.0];
 
 function createWidget(app_infos) {
   const w = new ListWidget();
-//   w.backgroundGradient = bgColor;
 
-  addTitleTextToListWidget("App Price Monitor", w);
+  const dateFormatter = new DateFormatter()
+  dateFormatter.dateFormat = "HH:mm"
+  const lastUpdateTime = `更新时间: ${dateFormatter.string(new Date())}`;
+  
+  addTitleTextToListWidget(lastUpdateTime, w);
   w.addSpacer(5);
 
   //打折排到最前
@@ -127,7 +130,7 @@ function addTitleTextToListWidget(text, listWidget) {
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
-    item.font = Font.boldSystemFont(10);
+    item.font = Font.systemFont(11);
   }
   item.textOpacity = 0.7;
 }
