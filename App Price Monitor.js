@@ -80,7 +80,7 @@ function createWidget(app_infos) {
   const dateFormatter = new DateFormatter()
   dateFormatter.dateFormat = "HH:mm"
   const lastUpdateTime = `更新时间: ${dateFormatter.string(new Date())}`;
-  
+
   addTitleTextToListWidget(lastUpdateTime, w);
   w.addSpacer(5);
 
@@ -93,7 +93,7 @@ function createWidget(app_infos) {
     // is_sale 为 true 的排在前面
     return b.is_sale - a.is_sale;
   });
-  
+
   for (var i = 0; i < app_infos.length; i++) {
     addTextToListWidget(app_infos[i], w);
   }
@@ -110,23 +110,17 @@ function addTextToListWidget(app_info, listWidget) {
 
   let item = stack.addText(text);
   if (app_info.is_sale) {
-    // item.textColor = Color.green();
     item.textColor = new Color("006400");
     item.font = Font.boldSystemFont(12);
   } else {
-//     item.textColor = isDark ? Color.white() : Color.black();
-    // item.textColor = new Color("808080");
     item.font = Font.systemFont(12);
   }
-  // item.textOpacity = 1;
 }
 
 function addTitleTextToListWidget(text, listWidget) {
   const titleStack = listWidget.addStack();
   titleStack.size = new Size(330, 15);
   let item = titleStack.addText(text);
-//   item.textColor = isDark ? Color.white() : Color.black();
-  // item.textColor = new Color("808080");
   try {
     item.applyHeadlineTextStyling();
   } catch (e) {
@@ -200,9 +194,8 @@ async function post_data(d) {
                     if (app_price !== app_monitor[x.trackId].p) {
                       is_sale = true;
                       app_infos.push({
-                        content: `${app_name} | ${app_price}(${
-                          app_monitor[x.trackId].p
-                        })`,
+                        content: `${app_name} | ${app_price}(${app_monitor[x.trackId].p
+                          })`,
                         is_sale: true,
                       });
                     }
@@ -229,94 +222,5 @@ async function post_data(d) {
   }
 }
 
-function flag(x) {
-  return "";
-}
-
 //From Peng-YM's OpenAPI.js
-function ENV() {
-  const e = "undefined" != typeof $task,
-    t = "undefined" != typeof $loon,
-    s = "undefined" != typeof $httpClient && !this.isLoon,
-    o = "function" == typeof require && "undefined" != typeof $jsbox;
-  return {
-    isQX: e,
-    isLoon: t,
-    isSurge: s,
-    isNode: "function" == typeof require && !o,
-    isJSBox: o,
-    isRequest: "undefined" != typeof $request,
-    isScriptable: "undefined" != typeof importModule,
-  };
-}
-function HTTP(e, t = {}) {
-  const { isQX: s, isLoon: o, isSurge: i, isScriptable: n, isNode: r } = ENV();
-  const u = {};
-  return (
-    ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"].forEach(
-      (h) =>
-        (u[h.toLowerCase()] = (u) =>
-          (function (u, h) {
-            (h = "string" == typeof h ? { url: h } : h).url = e
-              ? e + h.url
-              : h.url;
-            const c = (h = { ...t, ...h }).timeout,
-              l = {
-                onRequest: () => {},
-                onResponse: (e) => e,
-                onTimeout: () => {},
-                ...h.events,
-              };
-            let d, a;
-            if ((l.onRequest(u, h), s)) d = $task.fetch({ method: u, ...h });
-            else if (o || i || r)
-              d = new Promise((e, t) => {
-                (r ? require("request") : $httpClient)[u.toLowerCase()](
-                  h,
-                  (s, o, i) => {
-                    s
-                      ? t(s)
-                      : e({
-                          statusCode: o.status || o.statusCode,
-                          headers: o.headers,
-                          body: i,
-                        });
-                  }
-                );
-              });
-            else if (n) {
-              const e = new Request(h.url);
-              (e.method = u),
-                (e.headers = h.headers),
-                (e.body = h.body),
-                (d = new Promise((t, s) => {
-                  e.loadString()
-                    .then((s) => {
-                      t({
-                        statusCode: e.response.statusCode,
-                        headers: e.response.headers,
-                        body: s,
-                      });
-                    })
-                    .catch((e) => s(e));
-                }));
-            }
-            const f = c
-              ? new Promise((e, t) => {
-                  a = setTimeout(
-                    () => (
-                      l.onTimeout(),
-                      t(`${u} URL: ${h.url} exceeds the timeout ${c} ms`)
-                    ),
-                    c
-                  );
-                })
-              : null;
-            return (
-              f ? Promise.race([f, d]).then((e) => (clearTimeout(a), e)) : d
-            ).then((e) => l.onResponse(e));
-          })(h, u))
-    ),
-    u
-  );
-}
+function ENV() { const e = "undefined" != typeof $task, t = "undefined" != typeof $loon, s = "undefined" != typeof $httpClient && !this.isLoon, o = "function" == typeof require && "undefined" != typeof $jsbox; return { isQX: e, isLoon: t, isSurge: s, isNode: "function" == typeof require && !o, isJSBox: o, isRequest: "undefined" != typeof $request, isScriptable: "undefined" != typeof importModule, } } function HTTP(e, t = {}) { const { isQX: s, isLoon: o, isSurge: i, isScriptable: n, isNode: r } = ENV(); const u = {}; return (["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"].forEach((h) => (u[h.toLowerCase()] = (u) => (function (u, h) { (h = "string" == typeof h ? { url: h } : h).url = e ? e + h.url : h.url; const c = (h = { ...t, ...h }).timeout, l = { onRequest: () => { }, onResponse: (e) => e, onTimeout: () => { }, ...h.events, }; let d, a; if ((l.onRequest(u, h), s)) d = $task.fetch({ method: u, ...h }); else if (o || i || r) d = new Promise((e, t) => { (r ? require("request") : $httpClient)[u.toLowerCase()](h, (s, o, i) => { s ? t(s) : e({ statusCode: o.status || o.statusCode, headers: o.headers, body: i, }) }) }); else if (n) { const e = new Request(h.url); (e.method = u), (e.headers = h.headers), (e.body = h.body), (d = new Promise((t, s) => { e.loadString().then((s) => { t({ statusCode: e.response.statusCode, headers: e.response.headers, body: s, }) }).catch((e) => s(e)) })) } const f = c ? new Promise((e, t) => { a = setTimeout(() => (l.onTimeout(), t(`${u}URL:${h.url}exceeds the timeout ${c}ms`)), c) }) : null; return (f ? Promise.race([f, d]).then((e) => (clearTimeout(a), e)) : d).then((e) => l.onResponse(e)) })(h, u))), u) }
