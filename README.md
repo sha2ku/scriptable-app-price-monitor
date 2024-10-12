@@ -5,6 +5,9 @@ Github: https://github.com/evilbutcher
 本脚本使用了@Gideon_Senku的Env，Peng-YM的OpenAPI！感谢！  
 感谢@MuTu88帮忙测试！
 
+## 使用
+请先下载安装 [Scriptable](https://scriptable.app/)，并将本脚本手动导入。
+
 ## 预览图
 
 <img width="367" alt="image" src="https://github.com/user-attachments/assets/46f5751e-8639-4b6a-8941-f134f5f1cd24">
