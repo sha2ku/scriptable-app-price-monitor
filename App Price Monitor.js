@@ -36,7 +36,7 @@ let apps = [
   "1563121109|us", //破碎的像素地牢
   "1635315427", //暖雪
   "6502453075|us", //小丑牌
-  "1032708262|us", //坠落深井
+  // "1032708262|us", //坠落深井
   "6482989598", //侠客风云传前传
 ]; //app跟踪id
 let reg = "cn"; //默认区域：美国us 中国cn 香港hk
@@ -55,14 +55,6 @@ try {
 }
 
 const isDark = Device.isUsingDarkAppearance();
-const bgColor = new LinearGradient();
-bgColor.colors = isDark
-  ? [new Color("#151515"), new Color("#1c1c1e")]
-  : [new Color("#ffffff"), new Color("#f0f0f0")];
-
-bgColor.colors = isDark ? [new Color("#000000")] : [new Color("#ffffff")];
-
-bgColor.locations = [0.0, 1.0];
 
 !(async () => {
   await format_apps(apps);
