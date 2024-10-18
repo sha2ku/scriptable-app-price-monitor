@@ -54,8 +54,6 @@ try {
   }
 }
 
-const isDark = Device.isUsingDarkAppearance();
-
 !(async () => {
   await format_apps(apps);
   log(app_infos);
