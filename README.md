@@ -6,7 +6,7 @@ Github: https://github.com/evilbutcher
 感谢@MuTu88帮忙测试！
 
 ## 使用
-请先下载安装 [Scriptable](https://scriptable.app/)，并将本脚本手动导入。
+请先下载安装 [Scriptable](https://scriptable.app/)，然后将本脚本手动导入。
 
 ## 预览图
 
