@@ -9,7 +9,7 @@
  */
 const $http = HTTP();
 
-var app_monitor = {
+const app_monitor = {
   1563121109: {
     //监控价格，当真实价格与该价格不相等时进行折扣展示
     p: "$4.99",
@@ -84,8 +84,8 @@ function createWidget(app_infos) {
     return b.is_sale - a.is_sale;
   });
 
-  for (var i = 0; i < app_infos.length; i++) {
-    addTextToListWidget(app_infos[i], w);
+  for (const element of app_infos) {
+    addTextToListWidget(element, w);
   }
 
   w.addSpacer();
@@ -165,8 +165,13 @@ async function post_data(d) {
             let results = JSON.parse(response.body).results;
             if (Array.isArray(results) && results.length > 0) {
               results.forEach((x) => {
-                var is_sale = false;
-                var app_name = app_monitor[x.trackId].n;
+                let is_sale = false;
+                let app_monitor_data = app_monitor[x.trackId];
+                if (!app_monitor_data) {
+                  app_monitor_data = {};
+                }
+
+                let app_name = app_monitor_data.n;
                 if (!app_name) {
                   app_name = x.trackName;
                 }
